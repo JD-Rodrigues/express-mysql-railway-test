@@ -1,23 +1,20 @@
-const {MySqlConnection} = require('mysqlconnector')
+const mysql = require('mysql2/promise')
 
-const connection = new MySqlConnection({
-  hostname: "containers-us-west-176.railway.applocalhost",
-  username: "root",
-  password: "MH3JQfAuj3RVqLJK4gix",
-  port: 7843,
-}); 
+const connection = async () => {
+  const connection = await mysql.createConnection("mysql://root:MH3JQfAuj3RVqLJK4gix@containers-us-west-176.railway.app:7843/railway"); 
+  console.log('Conectou ao mysql')
+  return connection
+}
 
 const get = async () => {
-  connection.connectAsync().then(() => { 
-        
-    connection.queryAsync('SELECT * FROM tasks').then((results) => {
-    
-        results.forEach(user => { console.log(user); });
-        
-        connection.closeAsync().then(() => { console.log('connection closed'); })
-      });
-  });
+  const conn = await connection()
+  const data = await conn.query('SELECT * FROM tasks')
+  return data[0]  
 }
+
+ 
+ 
 
 
 module.exports = {get}
+

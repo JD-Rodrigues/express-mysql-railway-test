@@ -7,8 +7,8 @@ const router = express.Router()
 
 const port = process.env.PORT || 3000
 
-router.get("/", (req,res)=>{
-  get().then(res.json('Funcionou!'))
+router.get("/", (req,res) => {
+  get().then(data => res.json(data))
   
 })
 
