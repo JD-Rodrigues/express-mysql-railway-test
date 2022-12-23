@@ -1,4 +1,6 @@
 const express = require('express')
+const { get } = require('./queries')
+
 
 const app = express()
 const router = express.Router()
@@ -6,7 +8,8 @@ const router = express.Router()
 const port = process.env.PORT || 3000
 
 router.get("/", (req,res)=>{
-  res.json('Funcionou!')
+  get().then(res.json('Funcionou!'))
+  
 })
 
 app.use(router)
